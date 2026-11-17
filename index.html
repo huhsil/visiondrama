@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>비전 드라마 | 커뮤니티플레이 프로그램 제안서</title>
+<meta name="description" content="기업의 핵심 가치를 연극 창작으로 내재화하는 커뮤니티플레이의 비전 드라마 프로그램 제안서">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --orange:#FF6B35;
+    --orange-deep:#E0501D;
+    --orange-tint:#FFF0E8;
+    --orange-tint2:#FFE2D1;
+    --charcoal:#3B3733;
+    --charcoal-soft:#5B564F;
+    --ink:#1E1B18;
+    --ink-soft:#6B655D;
+    --paper:#FFFFFF;
+    --paper-soft:#F6F4F1;
+    --paper-soft2:#F0ECE6;
+    --line:rgba(30,27,24,0.1);
+    --radius:16px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:#E7E4DF;
+    color:var(--ink);
+    font-family:'Noto Sans KR',sans-serif;
+    font-weight:400;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{margin:0;font-weight:800;letter-spacing:-0.01em;}
+  p{margin:0;}
+  a{color:inherit;}
+  svg{display:block;}
+  ul{margin:0;padding:0;list-style:none;}
+
+  /* ============ SLIDE SHELL ============ */
+  .slide{
+    position:relative;
+    width:100%;
+    max-width:1280px;
+    margin:0 auto;
+    aspect-ratio:16/9;
+    background:var(--paper);
+    overflow:hidden;
+    container-type:inline-size;
+    display:flex;
+    flex-direction:column;
+  }
+  .slide + .slide{margin-top:14px;}
+  @media (max-width:720px){
+    .slide{aspect-ratio:auto;min-height:0;}
+  }
+
+  .blob{
+    position:absolute;
+    border-radius:50%;
+    pointer-events:none;
+    z-index:0;
+  }
+  .blob-tr{
+    top:-18cqw; right:-14cqw; width:46cqw; height:46cqw;
+    background:radial-gradient(circle at 30% 30%, var(--orange-tint2), rgba(255,226,209,0) 70%);
+  }
+  .blob-bl{
+    bottom:-20cqw; left:-16cqw; width:40cqw; height:40cqw;
+    background:radial-gradient(circle at 60% 60%, var(--paper-soft2), rgba(240,236,230,0) 72%);
+  }
+
+  .slide-pad{
+    position:relative;
+    z-index:1;
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    padding:5.2cqw 5.6cqw 3.6cqw;
+    min-height:0;
+  }
+  @media (max-width:720px){
+    .slide-pad{padding:28px 22px 24px;}
+  }
+
+  .kicker{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    font-weight:800;
+    color:var(--orange-deep);
+    font-size:clamp(14px,1.7cqw,20px);
+    margin-bottom:1.6cqw;
+  }
+  .kicker .num{font-size:clamp(14px,1.7cqw,20px);}
+  .kicker-rule{
+    border:none;border-top:1.5px solid var(--line);
+    margin:0 0 2.6cqw;
+  }
+
+  .slide-foot{
+    position:relative;z-index:1;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:0 5.6cqw 2.6cqw;
+    font-size:clamp(10px,0.95cqw,12.5px);
+    color:var(--ink-soft);
+  }
+  @media (max-width:720px){.slide-foot{padding:0 22px 18px;}}
+  .slide-foot b{color:var(--ink);font-weight:700;}
+
+  /* ============ COMMON PARTS ============ */
+  .statement-box{
+    background:var(--paper-soft);
+    border-radius:var(--radius);
+    padding:2.3cqw 3cqw;
+    text-align:center;
+    font-weight:700;
+    font-size:clamp(16px,2.05cqw,26px);
+    margin-bottom:2.8cqw;
+    line-height:1.5;
+  }
+  .statement-box .accent{color:var(--orange-deep);}
+  @media (max-width:720px){
+    .statement-box{padding:18px 16px;font-size:16px;}
+    .fit-note-box{white-space:normal !important;font-size:14.5px !important;}
+  }
+
+  .section-title{
+    font-size:clamp(22px,3.1cqw,38px);
+    margin-bottom:0.6cqw;
+  }
+  .section-title .accent{color:var(--orange-deep);}
+
+  .diamond-label{
+    display:flex;align-items:center;gap:8px;
+    font-weight:800;font-size:clamp(14px,1.5cqw,18px);
+    margin-bottom:1.3cqw;
+  }
+  .diamond-label .diamond{
+    width:9px;height:9px;background:var(--orange);
+    transform:rotate(45deg);flex:none;
+  }
+
+  .icon-box{
+    width:clamp(34px,4.1cqw,52px);
+    height:clamp(34px,4.1cqw,52px);
+    border-radius:12px;
+    display:flex;align-items:center;justify-content:center;
+    flex:none;
+  }
+  .icon-box svg{width:56%;height:56%;}
+  .icon-box.o{background:var(--orange-tint);color:var(--orange-deep);}
+  .icon-box.c{background:var(--paper-soft2);color:var(--charcoal);}
+
+  .pill{
+    display:inline-flex;align-items:center;gap:6px;
+    padding:0.5cqw 1.1cqw;
+    border-radius:999px;
+    font-weight:700;
+    font-size:clamp(11px,1.1cqw,14px);
+  }
+  .pill.orange{background:var(--orange);color:#fff;}
+  .pill.charcoal{background:var(--charcoal);color:#fff;}
+
+  .check-row{
+    display:flex;align-items:flex-start;gap:10px;
+  }
+  .check-badge{
+    width:clamp(16px,1.6cqw,20px);height:clamp(16px,1.6cqw,20px);
+    border-radius:50%;flex:none;margin-top:2px;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--orange);color:#fff;
+  }
+  .check-badge svg{width:62%;height:62%;}
+  .check-row.c .check-badge{background:var(--charcoal);}
+
+  /* =============== SLIDE 0 — COVER =============== */
+  .cover .slide-pad{padding:0;justify-content:space-between;}
+  .cover-top{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:3.4cqw 5.6cqw 0;
+  }
+  .cover-brand{
+    display:flex;align-items:center;gap:10px;
+    font-weight:800;font-size:clamp(13px,1.5cqw,17px);
+  }
+  .cover-brand .mark{
+    width:clamp(20px,2.2cqw,26px);height:clamp(20px,2.2cqw,26px);
+    border-radius:7px;background:var(--orange);
+    position:relative;flex:none;
+  }
+  .cover-brand .mark::after{
+    content:"";position:absolute;inset:28%;
+    border-radius:3px;background:#fff;opacity:0.9;
+  }
+  .cover-tag{
+    font-weight:700;font-size:clamp(11px,1.2cqw,14px);
+    color:var(--orange-deep);
+    border:1.4px solid var(--orange-tint2);
+    background:var(--orange-tint);
+    padding:5px 14px;border-radius:999px;
+  }
+  .cover-mid{
+    padding:0 5.6cqw;
+  }
+  .cover-eyebrow{
+    font-weight:700;color:var(--ink-soft);
+    font-size:clamp(12px,1.3cqw,16px);
+    margin-bottom:1.4cqw;
+  }
+  .cover-title-1{
+    color:var(--orange-deep);
+    font-size:clamp(26px,4.6cqw,58px);
+    font-weight:800;line-height:1.16;
+  }
+  .cover-title-2{
+    font-size:clamp(40px,7.4cqw,92px);
+    font-weight:900;line-height:1.05;
+    letter-spacing:-0.01em;
+    margin-top:0.2cqw;
+  }
+  .cover-sub{
+    margin-top:1.8cqw;
+    font-size:clamp(13px,1.45cqw,18px);
+    color:var(--ink-soft);
+    max-width:96%;
+    line-height:1.75;
+  }
+  .cover-bar{
+    background:var(--orange);
+    color:#fff;
+    display:flex;flex-wrap:wrap;gap:0.6cqw 2.4cqw;
+    align-items:center;
+    padding:1.9cqw 5.6cqw;
+    font-size:clamp(11px,1.15cqw,14.5px);
+    font-weight:600;
+  }
+  .cover-bar b{font-weight:800;margin-right:4px;}
+  .cover-bar .sep{opacity:0.55;}
+  @media (max-width:720px){
+    .cover-top{padding:20px 20px 0;}
+    .cover-mid{padding:0 20px;}
+    .cover-bar{padding:16px 20px;font-size:12.5px;}
+  }
+
+  /* =============== SLIDE 1 — TOC =============== */
+  .toc-head{display:flex;align-items:center;gap:1.4cqw;margin-bottom:2.6cqw;}
+  .toc-head h2{font-size:clamp(26px,4cqw,46px);}
+  .toc-rule{flex:1;height:1.5px;background:var(--line);}
+  .toc-grid{
+    display:grid;grid-template-columns:1fr 1fr;
+    gap:0 3.6cqw;
+    flex:1;
+  }
+  .toc-item{
+    display:flex;align-items:flex-start;gap:1.1cqw;
+    padding:1.35cqw 0;
+    border-bottom:1px solid var(--line);
+  }
+  .toc-item .n{
+    font-weight:900;color:var(--orange);
+    font-size:clamp(20px,2.6cqw,32px);
+    width:2.4em;flex:none;
+  }
+  .toc-item .t{flex:1;min-width:0;}
+  .toc-item .t h3{font-size:clamp(14px,1.55cqw,19px);margin-bottom:2px;}
+  .toc-item .t p{font-size:clamp(11px,1.2cqw,14px);color:var(--ink-soft);}
+  .toc-item .p{
+    font-size:clamp(11px,1.15cqw,13px);color:var(--ink-soft);
+    flex:none;padding-top:0.3em;
+  }
+  .toc-grid-5{grid-auto-flow:column;grid-template-rows:repeat(3,auto);}
+  @media (max-width:720px){.toc-grid,.toc-grid-5{grid-template-columns:1fr;grid-auto-flow:row;}}
+
+  /* =============== OVERVIEW (01) =============== */
+  .overview-grid{
+    display:grid;grid-template-columns:1fr 1fr;
+    gap:1.6cqw;
+    flex:1;
+    min-height:0;
+    overflow:hidden;
+  }
+  .overview-col{display:flex;flex-direction:column;min-height:0;}
+  .overview-head{
+    padding:0.65cqw 0;text-align:center;font-weight:800;color:#fff;
+    font-size:clamp(12.5px,1.3cqw,16px);
+    border-radius:10px 10px 0 0;
+    flex:none;
+  }
+  .overview-head.orange{background:var(--orange);}
+  .overview-head.charcoal{background:var(--charcoal);}
+  .overview-body{
+    background:var(--paper-soft);
+    border-radius:0 0 10px 10px;
+    flex:1;
+    min-height:0;
+    overflow:hidden;
+    padding:1.1cqw 1.4cqw;
+    display:flex;flex-direction:column;gap:0.65cqw;
+    justify-content:center;
+  }
+  .ov-row{
+    display:flex;align-items:center;gap:10px;
+    background:var(--paper);
+    border-radius:10px;
+    padding:0.65cqw 1.1cqw;
+    font-size:clamp(11.5px,1.22cqw,14.5px);
+    font-weight:600;
+    line-height:1.3;
+    flex:none;
+  }
+  .ov-row .icon-box{width:clamp(24px,2.6cqw,32px);height:clamp(24px,2.6cqw,32px);border-radius:9px;}
+  @media (max-width:720px){.overview-grid{grid-template-columns:1fr;}}
+
+  /* =============== 02 WHY — highlight list =============== */
+  .why-list{display:flex;flex-direction:column;gap:1.1cqw;flex:1;justify-content:center;}
+  .why-card{
+    display:flex;align-items:center;gap:1.4cqw;
+    background:var(--paper-soft);
+    border-left:4px solid var(--orange);
+    border-radius:0 12px 12px 0;
+    padding:1.3cqw 1.8cqw;
+  }
+  .why-card .txt h3{font-size:clamp(14px,1.65cqw,20px);color:var(--orange-deep);margin-bottom:4px;}
+  .why-card .txt p{font-size:clamp(12px,1.3cqw,15px);color:var(--ink-soft);}
+
+  /* =============== 03 PROCESS FLOW =============== */
+  .flow-wrap{flex:1;display:flex;flex-direction:column;justify-content:center;}
+  .flow-row{display:flex;align-items:center;justify-content:center;gap:0;}
+  .flow-step{display:flex;flex-direction:column;align-items:center;width:20cqw;}
+  .flow-circle{
+    width:clamp(70px,13cqw,150px);height:clamp(70px,13cqw,150px);
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;margin-bottom:1cqw;
+    flex:none;
+  }
+  .flow-circle svg{width:34%;height:34%;}
+  .flow-circle.o{background:var(--orange);}
+  .flow-circle.c{background:var(--charcoal);}
+  .flow-step .kr{font-weight:800;font-size:clamp(13px,1.45cqw,18px);text-align:center;}
+  .flow-step .en{font-size:clamp(10px,1.05cqw,13px);color:var(--ink-soft);text-align:center;margin-top:2px;}
+  .flow-chevron{
+    width:clamp(16px,2cqw,26px);height:clamp(16px,2cqw,26px);
+    color:var(--orange);flex:none;margin:0 0.2cqw;
+  }
+  .flow-note{
+    text-align:center;margin-top:2cqw;
+    font-size:clamp(12px,1.3cqw,15px);color:var(--ink-soft);
+  }
+  @media (max-width:720px){
+    .flow-row{flex-direction:column;gap:14px;}
+    .flow-step{width:100%;}
+    .flow-chevron{transform:rotate(90deg);}
+  }
+
+  /* =============== DETAIL (04) four-card, 2x2 =============== */
+  .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.8cqw;flex:1;min-height:0;}
+  .quad-grid{display:grid;grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(2,1fr);gap:0.9cqw 1.3cqw;flex:1;min-height:0;}
+  .detail-card{
+    background:var(--paper-soft);
+    border-radius:var(--radius);
+    overflow:hidden;
+    display:flex;flex-direction:column;
+    min-height:0;
+  }
+  .detail-head{
+    display:flex;align-items:center;gap:1cqw;
+    padding:1.5cqw 1.8cqw 1.1cqw;
+  }
+  .quad-grid .detail-head{padding:1.6cqw 1.7cqw 0.9cqw;gap:0.7cqw;flex-wrap:wrap;}
+  .quad-grid .detail-head .time{
+    font-weight:700;color:var(--ink-soft);
+    font-size:clamp(11.5px,1.15cqw,14px);
+    margin-left:-0.1cqw;
+  }
+  .detail-head .tagnum{
+    width:clamp(26px,2.6cqw,32px);height:clamp(26px,2.6cqw,32px);
+    border-radius:50%;background:var(--orange);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:clamp(12px,1.3cqw,15px);flex:none;
+  }
+  .quad-grid .detail-head .tagnum{width:clamp(24px,2.4cqw,29px);height:clamp(24px,2.4cqw,29px);font-size:clamp(11.5px,1.15cqw,14px);}
+  .detail-head h3{font-size:clamp(16px,1.85cqw,22px);}
+  .quad-grid .detail-head h3{font-size:clamp(16px,1.8cqw,21px);line-height:1.3;}
+  .detail-body{
+    padding:0 1.8cqw 1.3cqw;
+    display:flex;flex-direction:column;gap:0.75cqw;
+    overflow:hidden;
+  }
+  .quad-grid .detail-body{padding:0.5cqw 1.7cqw 1.7cqw;gap:1.1cqw;flex:1;justify-content:center;}
+  .detail-line{
+    display:flex;gap:10px;align-items:flex-start;
+    font-size:clamp(11.5px,1.22cqw,14.5px);
+    padding-bottom:0.7cqw;
+    border-bottom:1px solid var(--line);
+  }
+  .detail-line:last-child{border-bottom:none;padding-bottom:0;}
+  .detail-line .lbl{font-weight:800;color:var(--orange-deep);flex:none;width:4.6em;}
+  .detail-line .val{color:var(--ink-soft);line-height:1.6;}
+  .quad-grid .detail-line{
+    font-size:clamp(12.5px,1.35cqw,15.5px);
+    padding-bottom:0.9cqw;
+    gap:10px;
+  }
+  .quad-grid .detail-line .lbl{width:4.3em;font-size:clamp(11.5px,1.25cqw,14.5px);}
+  .quad-grid .detail-line .val{white-space:normal;line-height:1.55;word-break:keep-all;}
+  .detail-visual{display:flex;justify-content:center;align-items:center;padding:0.3cqw 0 0.8cqw;margin-top:auto;}
+  .detail-visual .icon-circle{
+    width:clamp(30px,2.8cqw,38px);height:clamp(30px,2.8cqw,38px);
+    border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none;
+    background:var(--orange-tint);color:var(--orange-deep);
+  }
+  .detail-visual .icon-circle.c{background:var(--paper-soft2);color:var(--charcoal);}
+  .detail-visual .icon-circle svg{width:50%;height:50%;}
+  @media (max-width:720px){
+    .detail-grid{grid-template-columns:1fr;}
+    .quad-grid{grid-template-columns:1fr 1fr;grid-template-rows:none;}
+    .quad-grid .detail-line .val{white-space:normal;}
+  }
+
+  /* =============== FIT (06) problem/solution style =============== */
+  .fit-rows{display:flex;flex-direction:column;gap:1cqw;flex:1;justify-content:center;}
+  .fit-row{display:grid;grid-template-columns:1.1fr auto 1.3fr;align-items:center;gap:1.1cqw;}
+  .fit-need, .fit-benefit{
+    border-radius:999px;padding:1cqw 1.6cqw;font-weight:700;
+    font-size:clamp(12px,1.35cqw,16px);text-align:center;
+  }
+  .fit-need{background:var(--orange);color:#fff;}
+  .fit-benefit{
+    background:var(--charcoal);color:#fff;
+    display:flex;align-items:center;gap:8px;justify-content:flex-start;
+    padding-left:1.8cqw;
+  }
+  .fit-chevron{width:clamp(14px,1.6cqw,22px);height:clamp(14px,1.6cqw,22px);color:var(--orange);}
+  @media (max-width:720px){
+    .fit-row{grid-template-columns:1fr;gap:8px;}
+    .fit-chevron{transform:rotate(90deg);margin:0 auto;}
+  }
+
+  /* =============== CLOSING =============== */
+  .closing{background:var(--charcoal);}
+  .closing .slide-pad{
+    justify-content:space-between;
+    align-items:center;text-align:center;
+    padding-top:4.5cqw;
+  }
+  .closing-brand{
+    display:flex;align-items:center;gap:10px;
+    color:#fff;font-weight:800;font-size:clamp(13px,1.4cqw,16px);
+    align-self:flex-start;
+  }
+  .closing-brand .mark{
+    width:clamp(20px,2.2cqw,26px);height:clamp(20px,2.2cqw,26px);
+    border-radius:7px;background:var(--orange);position:relative;flex:none;
+  }
+  .closing-brand .mark::after{content:"";position:absolute;inset:28%;border-radius:3px;background:#fff;opacity:0.9;}
+  .closing-mid{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;}
+  .closing-tag{
+    color:var(--orange);font-weight:700;
+    font-size:clamp(13px,1.5cqw,18px);margin-bottom:1.2cqw;
+  }
+  .closing-word{
+    font-weight:900;color:transparent;
+    -webkit-text-stroke:1.4px rgba(255,255,255,0.5);
+    font-size:clamp(40px,8.5cqw,110px);
+    line-height:1;letter-spacing:0.01em;
+  }
+  .closing-desc{
+    margin-top:1.6cqw;color:rgba(255,255,255,0.78);
+    font-size:clamp(12.5px,1.4cqw,16.5px);
+    max-width:94%;line-height:1.85;
+  }
+  .closing-bar{
+    width:100%;
+    background:var(--orange-tint2);
+    border-radius:999px;
+    display:flex;flex-wrap:wrap;
+    justify-content:center;align-items:center;
+    gap:0.6cqw 2cqw;
+    padding:1.3cqw 2cqw;
+    font-size:clamp(11px,1.2cqw,14.5px);
+    font-weight:700;color:var(--charcoal);
+  }
+  .closing-bar a{text-decoration:none;color:var(--orange-deep);}
+  .closing-bar .lab{color:var(--ink-soft);font-weight:600;margin-right:4px;}
+  .closing-bar .sep{opacity:0.45;}
+  @media (max-width:720px){
+    .closing .slide-pad{padding:28px 22px 24px;}
+    .closing-bar{flex-direction:column;gap:8px;padding:16px;}
+  }
+
+  /* =============== DOWNLOAD BUTTON (after all slides) =============== */
+  .dl-wrap{
+    max-width:1280px;margin:30px auto 60px;
+    display:flex;justify-content:center;
+  }
+  .dl-btn{
+    display:inline-flex;align-items:center;gap:10px;
+    background:var(--ink);color:#fff;
+    font-weight:700;font-size:15px;
+    padding:14px 28px;border-radius:999px;
+    text-decoration:none;
+  }
+  .dl-btn svg{width:18px;height:18px;}
+  .dl-btn:hover{background:var(--orange-deep);}
+
+  .page-bg-top{
+    text-align:center;padding:26px 20px 4px;
+    font-size:13px;color:#8a847c;font-weight:600;
+    max-width:1280px;margin:0 auto;
+  }
+
+  @media print{
+    body{background:#fff;}
+    .slide{aspect-ratio:auto;width:1280px;height:720px;page-break-after:always;margin:0;}
+    .slide + .slide{margin-top:0;}
+    .dl-wrap,.page-bg-top{display:none;}
+    @page{size:1280px 720px;margin:0;}
+  }
+</style>
+</head>
+<body>
+
+<p class="page-bg-top">커뮤니티플레이 · 프로그램 제안서</p>
+
+<!-- ============ SLIDE 0 : COVER ============ -->
+<section class="slide cover">
+  <div class="blob blob-tr"></div>
+  <div class="slide-pad">
+    <div class="cover-top">
+      <div class="cover-brand"><span class="mark"></span>커뮤니티플레이</div>
+      <div class="cover-tag">LIBERATION PROGRAM</div>
+    </div>
+    <div class="cover-mid">
+      <div class="cover-eyebrow">리버레이션 프로그램 · 자유 · 창의 · 혁신</div>
+      <div class="cover-title-1">텍스트가 아니라 경험으로,</div>
+      <div class="cover-title-2">비전 드라마</div>
+      <p class="cover-sub">기업의 핵심 가치를 팀원들과 연극으로 직접 기획하고 연기하며,<br>온몸으로 체화하는 과정 중심 연극 창작 프로그램입니다.</p>
+    </div>
+    <div class="cover-bar">
+      <span><b>제안 대상</b>신입사원 · 예비 리더 · 중간관리자</span>
+      <span class="sep">|</span>
+      <span><b>진행 시간</b>4~6시간</span>
+      <span class="sep">|</span>
+      <span><b>문의</b>huhsil@communityplay.co.kr</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 1 : CONTENTS ============ -->
+<section class="slide">
+  <div class="blob blob-tr"></div>
+  <div class="slide-pad">
+    <div class="toc-head"><h2>CONTENTS</h2><span class="toc-rule"></span></div>
+    <div class="toc-grid toc-grid-5">
+      <div class="toc-item">
+        <span class="n">01</span>
+        <div class="t"><h3>프로그램 개요</h3><p>비전 드라마의 핵심 구조와 기대 효과를 요약합니다.</p></div>
+        <span class="p">03</span>
+      </div>
+      <div class="toc-item">
+        <span class="n">02</span>
+        <div class="t"><h3>왜 비전 드라마인가</h3><p>듣는 교육이 아닌 만드는 경험이 갖는 힘을 설명합니다.</p></div>
+        <span class="p">04</span>
+      </div>
+      <div class="toc-item">
+        <span class="n">03</span>
+        <div class="t"><h3>진행 프로세스</h3><p>4단계 흐름으로 진행되는 워크숍 구조를 보여줍니다.</p></div>
+        <span class="p">05</span>
+      </div>
+      <div class="toc-item">
+        <span class="n">04</span>
+        <div class="t"><h3>워크숍 자세히 보기</h3><p>네 단계 워크숍의 세부 내용을 한눈에 보여줍니다.</p></div>
+        <span class="p">06</span>
+      </div>
+      <div class="toc-item">
+        <span class="n">05</span>
+        <div class="t"><h3>이런 조직에 잘 맞습니다</h3><p>적합한 교육 시점과 대상을 안내합니다.</p></div>
+        <span class="p">07</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 2 : 01 OVERVIEW ============ -->
+<section class="slide">
+  <div class="slide-pad">
+    <div class="kicker"><span class="num">01</span> 프로그램 개요</div>
+    <hr class="kicker-rule">
+    <div class="statement-box" style="margin-bottom:1.6cqw;">
+      조직의 핵심가치를 <span class="accent">참가자가 직접 쓰고 연기하는 이야기</span>로 바꾸어,<br>
+      읽고 잊는 교육이 아니라 몸으로 기억하는 경험으로 완성합니다.
+    </div>
+    <div class="overview-grid">
+      <div class="overview-col">
+        <div class="overview-head orange">프로그램 핵심 구조</div>
+        <div class="overview-body">
+          <div class="ov-row"><span class="icon-box o">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 12.5c-1.5 2.5-4 4-8.5 4s-7-1.5-8.5-4"/><path d="M3.5 11.5c1.5-2.5 4-4 8.5-4s7 1.5 8.5 4"/><circle cx="12" cy="12" r="2.3"/></svg>
+          </span>핵심가치 + 연극 창작 결합</div>
+          <div class="ov-row"><span class="icon-box o">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3.4"/><circle cx="16" cy="9" r="2.6"/><path d="M3 19c0-3 2.3-5 5.2-5s5.2 2 5.2 5"/><path d="M13.4 14.3c2.4.2 4.1 1.9 4.1 4.7"/></svg>
+          </span>협동화로 시작하는 공동 캐릭터</div>
+          <div class="ov-row"><span class="icon-box o">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="13" rx="2"/><path d="M3 9h18"/><path d="M8 13.3l2.4 1.8L8 17"/></svg>
+          </span>픽사 스토리텔링 기법 적용</div>
+          <div class="ov-row"><span class="icon-box o">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 1.9"/></svg>
+          </span>4~6시간 단일 워크숍 완결</div>
+        </div>
+      </div>
+      <div class="overview-col">
+        <div class="overview-head charcoal">기대 핵심 효과</div>
+        <div class="overview-body">
+          <div class="ov-row"><span class="icon-box c">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.2 5.2 5.6.5-4.3 3.7 1.3 5.5L12 15l-4.8 2.9 1.3-5.5-4.3-3.7 5.6-.5z"/></svg>
+          </span>핵심가치를 자신의 언어로 재해석</div>
+          <div class="ov-row"><span class="icon-box c">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5V5a2 2 0 0 1 2-2h11.5A1.5 1.5 0 0 1 19 4.5v13"/><path d="M6 22a2 2 0 0 1-2-2v0a2 2 0 0 1 2-2h13"/></svg>
+          </span>강의보다 오래가는 기억 지속성</div>
+          <div class="ov-row"><span class="icon-box c">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="8.5" r="3"/><circle cx="16" cy="9.5" r="2.2"/><path d="M3 19c0-3 2.4-5 5.5-5s5.5 2 5.5 5"/><path d="M14 14.4c2.1.3 3.6 1.9 3.6 4.6"/></svg>
+          </span>조별 협업으로 쌓이는 팀 유대감</div>
+          <div class="ov-row"><span class="icon-box c">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 7-7"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg>
+          </span>별도 교재 없이 완결되는 구성</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-foot"><span><b>비전 드라마</b> 제안서</span><span>커뮤니티플레이 &nbsp;|&nbsp; 03</span></div>
+</section>
+
+<!-- ============ SLIDE 3 : 02 WHY ============ -->
+<section class="slide">
+  <div class="slide-pad">
+    <div class="kicker"><span class="num">02</span> 왜 비전 드라마인가</div>
+    <hr class="kicker-rule">
+    <div class="statement-box">
+      핵심가치가 <span class="accent">"회사가 정한 규칙"</span>이 아니라 <span class="accent">"우리가 함께 만든 이야기"</span>가 되는 순간,<br>
+      참가자는 그 가치를 자신의 언어로 다시 소유하게 됩니다.
+    </div>
+    <div class="why-list">
+      <div class="why-card">
+        <span class="icon-box o">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/></svg>
+        </span>
+        <div class="txt"><h3>글보다 강렬한 비주얼</h3><p>서로의 얼굴에서 마음에 드는 부위만 모아 캐릭터를 만들며 시작하는 몰입감</p></div>
+      </div>
+      <div class="why-card">
+        <span class="icon-box o">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="15" rx="2.2"/><path d="M3 9.2h18"/><path d="M8.5 13l2.1 1.6L8.5 16.2"/><path d="M13 15.6h3"/></svg>
+        </span>
+        <div class="txt"><h3>보고서 대신 스토리</h3><p>픽사(Pixar) 스토리텔링 기법으로 재미있게 풀어보는 조직의 위기 극복기</p></div>
+      </div>
+      <div class="why-card">
+        <span class="icon-box o">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="8.5" r="3.2"/><circle cx="16" cy="9.5" r="2.3"/><path d="M3 19c0-3.2 2.4-5.2 5.5-5.2s5.5 2 5.5 5.2"/><path d="M14 13.9c2.2.3 3.7 1.9 3.7 5.1"/></svg>
+        </span>
+        <div class="txt"><h3>진짜 협동의 경험</h3><p>무대 위에서 발을 맞추며 자연스럽게 생기는 끈끈한 유대감</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-foot"><span><b>비전 드라마</b> 제안서</span><span>커뮤니티플레이 &nbsp;|&nbsp; 04</span></div>
+</section>
+
+<!-- ============ SLIDE 4 : 03 PROCESS FLOW ============ -->
+<section class="slide">
+  <div class="slide-pad">
+    <div class="kicker"><span class="num">03</span> 진행 프로세스</div>
+    <hr class="kicker-rule">
+    <div class="statement-box">4~6시간 동안 네 단계를 거쳐, 참가자가 직접 이야기를 만들고 <span class="accent">조직의 비전으로 돌아옵니다.</span></div>
+    <div class="flow-wrap">
+      <div class="flow-row">
+        <div class="flow-step">
+          <div class="flow-circle o"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 12.5c-1.5 2.5-4 4-8.5 4s-7-1.5-8.5-4"/><path d="M3.5 11.5c1.5-2.5 4-4 8.5-4s7 1.5 8.5 4"/><circle cx="12" cy="12" r="2.3"/></svg></div>
+          <div class="kr">아이스브레이킹</div><div class="en">Warm-up</div>
+        </div>
+        <svg class="flow-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+        <div class="flow-step">
+          <div class="flow-circle c"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="8.5" r="3.2"/><circle cx="16" cy="9.5" r="2.3"/><path d="M3 19c0-3.2 2.4-5.2 5.5-5.2s5.5 2 5.5 5.2"/><path d="M14 13.9c2.2.3 3.7 1.9 3.7 5.1"/></svg></div>
+          <div class="kr">협동화 캐릭터 구축</div><div class="en">Co-drawing</div>
+        </div>
+        <svg class="flow-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+        <div class="flow-step">
+          <div class="flow-circle o"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="13" rx="2"/><path d="M3 9h18"/><path d="M8 13.3l2.4 1.8L8 17"/></svg></div>
+          <div class="kr">드라마 제작 &amp; 발표</div><div class="en">Create &amp; Perform</div>
+        </div>
+        <svg class="flow-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+        <div class="flow-step">
+          <div class="flow-circle c"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 7-7"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg></div>
+          <div class="kr">비전 다시 쓰기</div><div class="en">Rewrite Vision</div>
+        </div>
+      </div>
+      <p class="flow-note">각 단계는 조직의 상황과 인원에 맞춰 세부 시간과 활동을 조정할 수 있습니다.</p>
+    </div>
+  </div>
+  <div class="slide-foot"><span><b>비전 드라마</b> 제안서</span><span>커뮤니티플레이 &nbsp;|&nbsp; 05</span></div>
+</section>
+
+<!-- ============ SLIDE 5 : 04 DETAIL (merged) ============ -->
+<section class="slide">
+  <div class="slide-pad">
+    <div class="kicker"><span class="num">04</span> 워크숍 자세히 보기</div>
+    <hr class="kicker-rule">
+    <div class="quad-grid">
+      <div class="detail-card">
+        <div class="detail-head"><span class="tagnum">1</span><h3>아이스브레이킹</h3><span class="time">(약 20~30분)</span></div>
+        <div class="detail-body">
+          <div class="detail-line"><span class="lbl">내용</span><span class="val">관계 형성 놀이로 안전한 심리적 분위기를 만드는 시간</span></div>
+          <div class="detail-line"><span class="lbl">방식</span><span class="val">공간 크기, 인원 수, 조직 문화에 맞춘 연극놀이 및 모험 놀이</span></div>
+        </div>
+      </div>
+      <div class="detail-card">
+        <div class="detail-head"><span class="tagnum">2</span><h3>협동화 그리기</h3><span class="time">(약 40~60분)</span></div>
+        <div class="detail-body">
+          <div class="detail-line"><span class="lbl">내용</span><span class="val">조원들의 얼굴에서 눈·코·입·귀·머리 등 마음에 드는 부위만 하나씩 모아 하나의 캐릭터를 완성</span></div>
+          <div class="detail-line"><span class="lbl">방식</span><span class="val">완성된 얼굴에 워크숍에 맞는 가상 캐릭터(예: 신입사원, 3년 차 기획자)를 부여</span></div>
+        </div>
+      </div>
+      <div class="detail-card">
+        <div class="detail-head"><span class="tagnum">3</span><h3>드라마 제작 &amp; 발표</h3><span class="time">(약 120~150분)</span></div>
+        <div class="detail-body">
+          <div class="detail-line"><span class="lbl">내용</span><span class="val">캐릭터가 마주할 조직의 갈등 및 도전 상황을 상황 카드로 선택</span></div>
+          <div class="detail-line"><span class="lbl">방식</span><span class="val">라하드의 6조각 이야기 기법으로 플롯을 세우고, 픽사 스토리텔링 기법으로 완성</span></div>
+        </div>
+      </div>
+      <div class="detail-card">
+        <div class="detail-head"><span class="tagnum">4</span><h3>비전 다시 쓰기</h3><span class="time">(약 20~30분)</span></div>
+        <div class="detail-body">
+          <div class="detail-line"><span class="lbl">내용</span><span class="val">조직의 비전 속에서 자신의 역할과 성장의 의미를 재해석하는 정리 시간</span></div>
+          <div class="detail-line"><span class="lbl">방식</span><span class="val">각자 조직의 비전을 자신의 언어로 다시 쓰고 하나의 화면에서 함께 공유</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-foot"><span><b>비전 드라마</b> 제안서</span><span>커뮤니티플레이 &nbsp;|&nbsp; 06</span></div>
+</section>
+
+<!-- ============ SLIDE 6 : 05 FIT ============ -->
+<section class="slide">
+  <div class="slide-pad">
+    <div class="kicker"><span class="num">05</span> 이런 조직에 특히 잘 맞습니다</div>
+    <hr class="kicker-rule">
+    <div class="fit-rows">
+      <div class="fit-row">
+        <div class="fit-need">신입사원 온보딩 시즌</div>
+        <svg class="fit-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+        <div class="fit-benefit"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>핵심가치를 텍스트가 아닌 경험으로 각인</div>
+      </div>
+      <div class="fit-row">
+        <div class="fit-need">승진자 · 예비 리더 교육</div>
+        <svg class="fit-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+        <div class="fit-benefit"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>리더로서 조직 가치를 체화하고 전달하는 법 고민</div>
+      </div>
+      <div class="fit-row">
+        <div class="fit-need">중간관리자 조직문화 리마인드</div>
+        <svg class="fit-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+        <div class="fit-benefit"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>팀 안에서 흐려진 핵심가치를 다시 세우기</div>
+      </div>
+    </div>
+    <div class="statement-box fit-note-box" style="margin-top:2.2cqw;margin-bottom:0;font-size:clamp(14px,1.75cqw,22px);white-space:nowrap;">
+      신입사원, 예비 리더, 중간관리자 모두에게 적용 가능하며 <span class="accent">4~6시간의 단일 워크숍</span>으로 진행합니다.
+    </div>
+  </div>
+  <div class="slide-foot"><span><b>비전 드라마</b> 제안서</span><span>커뮤니티플레이 &nbsp;|&nbsp; 07</span></div>
+</section>
+
+<!-- ============ SLIDE 8 : CLOSING / CONTACT ============ -->
+<section class="slide closing">
+  <div class="slide-pad">
+    <div class="closing-brand"><span class="mark"></span>커뮤니티플레이</div>
+    <div class="closing-mid">
+      <div class="closing-tag">지속 가능한 조직 문화를 함께 만들어갑니다</div>
+      <div class="closing-word">VISION DRAMA</div>
+      <p class="closing-desc">구성원들이 직접 기업의 비전과 갈등 극복 스토리를 연극 형태로 기획하고 시연합니다.<br>무대 위에서 협동하고 공감하는 과정을 통해,<br>조직의 미래와 나의 역할이 자연스럽게 연결됩니다.</p>
+    </div>
+    <div class="closing-bar">
+      <span><span class="lab">1:1 문의</span><a href="https://open.kakao.com/o/swPLAiKh" target="_blank" rel="noopener">커뮤니티플레이 카카오톡 오픈채팅</a></span>
+      <span class="sep">|</span>
+      <span><span class="lab">이메일</span><a href="mailto:huhsil@communityplay.co.kr">huhsil@communityplay.co.kr</a></span>
+    </div>
+  </div>
+</section>
+
+<div class="dl-wrap">
+  <a class="dl-btn" href="vision-drama-proposal.pdf" download>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
+    제안서 PDF로 다운로드
+  </a>
+</div>
+
+</body>
+</html>
